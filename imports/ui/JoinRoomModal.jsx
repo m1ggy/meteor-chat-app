@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 const JoinRoomModal = ({ show, setShow }) => {
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setRoomId('');
+    setError(null);
+    setShow(false);
+  };
   const [roomId, setRoomId] = useState('');
   const [error, setError] = useState('');
 
@@ -26,7 +30,7 @@ const JoinRoomModal = ({ show, setShow }) => {
         <Modal.Title>Join Room</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
           <Form.Group>
             <Form.Label>Room Id</Form.Label>
             <Form.Control
@@ -36,10 +40,12 @@ const JoinRoomModal = ({ show, setShow }) => {
               required
             />
           </Form.Group>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' className='button'>
+            Submit
+          </Button>
         </Form>
 
-        {error && <Alert>{error}</Alert>}
+        {error && <Alert variant='danger'>{error}</Alert>}
       </Modal.Body>
       <Modal.Footer>
         <Button variant='danger' onClick={handleClose}>

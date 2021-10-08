@@ -101,9 +101,9 @@ const RoomsComponent = () => {
         </Row>
         <Row>
           <Col
-            lg={2}
+            lg={3}
             style={{ overflowY: 'scroll' }}
-            md={2}
+            md={3}
             sm={12}
             className='border'
           >

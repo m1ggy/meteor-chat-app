@@ -39,7 +39,7 @@ const DirectMessageModal = ({ show, setShow }) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header>Direct Message</Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
           <Form.Group>
             <Form.FloatingLabel>Recipient ID</Form.FloatingLabel>
             <Form.Control
@@ -62,7 +62,12 @@ const DirectMessageModal = ({ show, setShow }) => {
               required
             />
           </Form.Group>
-          <Button disabled={!validUser} variant='outline-success' type='submit'>
+          <Button
+            disabled={!validUser}
+            variant='outline-success'
+            type='submit'
+            className='button'
+          >
             Submit
           </Button>
         </Form>

@@ -39,11 +39,9 @@ const ChatComponent = ({ chats, loading }) => {
                     <pre
                       style={{
                         margin: 0,
-                        padding: 0,
                         textAlign: 'center',
                         // border: '1px black solid',
-                        maxWidth: '200px',
-                        right: 0,
+                        maxWidth: '150px',
                       }}
                     >
                       {x.senderId === user ? 'me' : x.sender}
@@ -52,6 +50,8 @@ const ChatComponent = ({ chats, loading }) => {
                         hour: 'numeric',
                         minute: '2-digit',
                       })}
+                      <br />
+                      {x.senderId}
                     </pre>
                     <div className={`chat `}>{x.text}</div>
                   </div>

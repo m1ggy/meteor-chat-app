@@ -19,7 +19,7 @@ const CreateNewRoomModal = ({ show, setShow }) => {
         <Modal.Title>Create New Room</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
           <Form.Group>
             <Form.Label>Room Name</Form.Label>
             <Form.Control
@@ -29,7 +29,9 @@ const CreateNewRoomModal = ({ show, setShow }) => {
               required
             />
           </Form.Group>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' className='button'>
+            Submit
+          </Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

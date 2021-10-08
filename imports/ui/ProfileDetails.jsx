@@ -11,7 +11,7 @@ const ProfileDetails = ({ ...props }) => {
 
       {user && (
         <div style={{ textAlign: 'center' }}>
-          <h6>Details</h6>
+          {/* <h6>Details</h6> */}
           <pre>username:{user.username}</pre>
           <pre>id:{user._id}</pre>
         </div>

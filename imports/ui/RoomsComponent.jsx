@@ -10,10 +10,12 @@ import JoinRoomModal from './JoinRoomModal';
 import ChatComponent from './ChatComponent';
 import Chats from '../db/Chats';
 import ProfileDetails from './ProfileDetails';
+import DirectMessageModal from './DirectMessageModal';
 
 const RoomsComponent = () => {
   const [showCreate, setShowCreate] = useState(false);
   const [showJoin, setShowJoin] = useState(false);
+  const [showSend, setShowSend] = useState(false);
   const history = useHistory();
   const user = useTracker(() => Meteor.userId());
 
@@ -25,7 +27,12 @@ const RoomsComponent = () => {
     let rooms = Rooms.find({}).fetch();
 
     rooms = rooms.filter((x) => {
-      return x.creatorId === user || (x.members && x?.members.includes(user));
+      return (
+        x.creatorId === user ||
+        (x.members && x?.members.includes(user)) ||
+        x.recipient === Meteor.user().username ||
+        x.sender === Meteor.user().username
+      );
     });
     const selectedRoomId = Session.get('currentRoomId');
 
@@ -100,6 +107,9 @@ const RoomsComponent = () => {
             sm={12}
             className='border'
           >
+            <Button variant='primary' onClick={() => setShowSend(true)}>
+              Send Message
+            </Button>
             <Button
               variant='outline-success'
               onClick={() => setShowCreate(true)}
@@ -129,7 +139,9 @@ const RoomsComponent = () => {
                       }}
                       onClick={() => handleSelectRoom(x._id)}
                     >
-                      {x.name}
+                      {x.name ||
+                        (x.creatorId === user && x.recipient && x.recipient) ||
+                        (x.recipientId === user && x.sender && x.sender)}
                     </li>
                   );
                 })}
@@ -140,7 +152,15 @@ const RoomsComponent = () => {
           <Col className='border'>
             {selectedRoom && (
               <>
-                <h2>{selectedRoom.name}</h2>
+                <h2>
+                  {selectedRoom.name ||
+                    (selectedRoom.creatorId === user &&
+                      selectedRoom.recipient &&
+                      selectedRoom.recipient) ||
+                    (selectedRoom.recipientId === user &&
+                      selectedRoom.sender &&
+                      selectedRoom.sender)}
+                </h2>
                 <Button
                   onClick={() => handleLeave(selectedRoom._id)}
                   variant='outline-danger'
@@ -165,13 +185,22 @@ const RoomsComponent = () => {
                     copy
                   </span>
                 </pre>
-                <pre>
-                  Members:
-                  {selectedRoom?.members &&
-                    selectedRoom.members.map((x) => {
+                {selectedRoom?.members && (
+                  <pre>
+                    Members:
+                    {selectedRoom.members.map((x) => {
                       return <>{x},</>;
                     })}
-                </pre>
+                  </pre>
+                )}
+                {selectedRoom.sender && selectedRoom.recipient && (
+                  <pre>
+                    sender:{selectedRoom.sender}
+                    <br />
+                    recipient:
+                    {selectedRoom.recipient}
+                  </pre>
+                )}
                 <ChatComponent chats={chats} loading={loading} />
               </>
             )}
@@ -181,6 +210,7 @@ const RoomsComponent = () => {
           </Col>
           <CreateNewRoomModal setShow={setShowCreate} show={showCreate} />
           <JoinRoomModal show={showJoin} setShow={setShowJoin} />
+          <DirectMessageModal show={showSend} setShow={setShowSend} />
         </Row>
       </Col>
     </div>

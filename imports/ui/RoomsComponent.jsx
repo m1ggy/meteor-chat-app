@@ -205,7 +205,7 @@ const RoomsComponent = () => {
               </>
             )}
           </Col>
-          <Col lg={3} className='border'>
+          <Col lg={2} className='border'>
             <ProfileDetails />
           </Col>
           <CreateNewRoomModal setShow={setShowCreate} show={showCreate} />

@@ -84,7 +84,7 @@ Meteor.methods({
         console.log(x);
         throw new Meteor.Error(
           'room-already-exists',
-          'You already have a room with this user'
+          'You already have a room with this user, use that room instead to send messages.'
         );
       }
     });

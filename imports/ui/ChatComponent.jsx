@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
-import Chats from '../db/Chats';
 import { Session } from 'meteor/session';
 
-const ChatComponent = ({ chats, loading }) => {
+const ChatComponent = ({ chats }) => {
   const [message, setMessage] = useState('');
 
   const user = useTracker(() => Meteor.userId());

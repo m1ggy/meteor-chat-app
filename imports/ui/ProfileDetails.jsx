@@ -4,7 +4,6 @@ import { useTracker } from 'meteor/react-meteor-data';
 const ProfileDetails = ({ ...props }) => {
   const user = useTracker(() => Meteor.user());
 
-  console.log(user);
   return (
     <div {...props}>
       <h2>Profile Details</h2>
